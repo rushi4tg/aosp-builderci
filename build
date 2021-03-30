@@ -28,7 +28,7 @@ ccache -z # Clear old stats, so monitor script will provide real ccache statisti
 # upload function for uploading rom zip file! I don't want unwanted builds in my google drive haha!
 up(){
 	curl -sL https://git.io/file-transfer | sh
-	./transfer wet $(basename $1); echo
+	./transfer wet $1; echo
         # 14 days, 10 GB limit
 }
 
@@ -49,7 +49,7 @@ mka api-stubs-docs || echo no problem
 mka system-api-stubs-docs || echo no problem
 mka test-api-stubs-docs || echo no problem
 
-mka derp -j12 \
+mka derp -j10 \
 	&& send_zip=$(up out/target/product/sakura/*zip) && tg $id "Build Succeed!
 $send_zip" \
 	|| tmate -S /tmp/tmate.sock new-session -d && tmate -S /tmp/tmate.sock wait tmate-ready && send_shell=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}') && tg $id "Build Failed" && tg $id "$send_shell" && ccache -s && sleep 2h
