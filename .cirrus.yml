@@ -19,6 +19,8 @@ task:
       - ./sync # Source sync script
     monitor_background_script: # To monitor ccache and machine status every minute, runs in background
       - ./monitor # Monitor script
+    ccache_uploader_background_script:
+      - ./ccache_uploader    
     build_script: # Actual build script foreground
       - ./build # Build script to run
     upload_ccache_script: # Upload ccache to cloud foreground
