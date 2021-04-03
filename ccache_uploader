@@ -1,9 +1,9 @@
 #!/bin/bash
-
 cd /tmp
 mkdir -p ~/.config/rclone
 echo "$rclone_config" > ~/.config/rclone/rclone.conf
 echo "Started upload demon"
+date +%c
 sleep 30m
 
 com () 
@@ -20,6 +20,7 @@ if [ $a = "yes" ]; then
         echo "Compressing and uploading ccache!"
         time com ccache automated
         time rclone copy automated.tar.gz gdrive:ccache -P
+        date +%c
         sleep 30m
 else
         echo "Skipped Uploading Ccache"
