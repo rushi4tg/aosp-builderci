@@ -6,7 +6,7 @@ mv gms_full.mk vendor/gms/
 rm -rf device/generic/opengl-transport
 # Normal build steps
 . build/envsetup.sh
-lunch derp_sakura-user
+lunch derp_X00TD-userdebug
 export CCACHE_DIR=/tmp/ccache
 export CCACHE_EXEC=$(which ccache)
 export USE_CCACHE=1
@@ -33,13 +33,13 @@ up(){
 }
 
 tg(){
-	bot_api=1640248475:AAHqbtG8_AAvdxQSbMDQ1hPIDcoH4stpW10 # Your tg bot api, dont use my one haha
-	your_telegram_id=$1 # No need to touch 
+	bot_api=1601555593:AAGub5maz9eFVOOpSFvKt_h_OXXf74YJEow # Your tg bot api, dont use my one haha
+	your_telegram_id=$1 # No need to touch
 	msg=$2 # No need to touch
 	curl -s "https://api.telegram.org/bot${bot_api}/sendmessage" --data "text=$msg&chat_id=${your_telegram_id}"
 }
 
-id=1258887267 # Your telegram id
+id=472743155 # Your telegram id
 
 # Build command! j10 for 10 cpu, j8 for 8 cpu, otherwise memeroy will end up even its 24G
 # Upload rom zip file if succeed to build! Send notification to tg! And send shell to tg if build fails!
@@ -50,7 +50,7 @@ mka system-api-stubs-docs || echo no problem
 mka test-api-stubs-docs || echo no problem
 
 mka derp -j8 \
-	&& send_zip=$(up out/target/product/sakura/*zip) && tg $id "Build Succeed!
+	&& send_zip=$(up out/target/product/X00TD/*zip) && tg $id "Build Succeed!
 $send_zip" \
 	|| tmate -S /tmp/tmate.sock new-session -d && tmate -S /tmp/tmate.sock wait tmate-ready && send_shell=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}') && tg $id "Build Failed" && tg $id "$send_shell" && ccache -s && sleep 2h
 ccache -s # Let's print ccache statistics finally
