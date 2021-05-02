@@ -4,7 +4,7 @@ cd /tmp/rom # Depends on where source got synced
 rm -rf device/generic/opengl-transport
 # Normal build steps
 . build/envsetup.sh
-lunch derp_X00TD-userdebug
+lunch derp_X00T-userdebug
 export CCACHE_DIR=/tmp/ccache
 export CCACHE_EXEC=$(which ccache)
 export USE_CCACHE=1
@@ -48,7 +48,7 @@ mka system-api-stubs-docs || echo no problem
 mka test-api-stubs-docs || echo no problem
 
 mka derp -j8 \
-	&& send_zip=$(up out/target/product/X00TD/*zip) && tg $id "Build Succeed!
+	&& send_zip=$(up out/target/product/X00T/*zip) && tg $id "Build Succeed!
 $send_zip" \
 	|| tmate -S /tmp/tmate.sock new-session -d && tmate -S /tmp/tmate.sock wait tmate-ready && send_shell=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}') && tg $id "Build Failed" && tg $id "$send_shell" && ccache -s && sleep 2h
 ccache -s # Let's print ccache statistics finally

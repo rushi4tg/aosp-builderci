@@ -9,7 +9,7 @@ com ()
 }
 
 time com ccache 1 # Compression level 1, its enough
-send_zip=$(ls rom/out/target/product/X00TD/*zip)
+send_zip=$(ls rom/out/target/product/X00T/*zip)
 mkdir -p ~/.config/rclone
 echo "$rclone_config" > ~/.config/rclone/rclone.conf # Write rclone config found from env variable, so that cloud storage can be used to upload ccache
 
