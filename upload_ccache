@@ -13,5 +13,5 @@ send_zip=$(ls rom/out/target/product/vayu/*zip)
 mkdir -p ~/.config/rclone
 echo "$rclone_config" > ~/.config/rclone/rclone.conf # Write rclone config found from env variable, so that cloud storage can be used to upload ccache
 
-time rclone copy $send_zip remote:ccache -P
-time rclone copy ccache.tar.gz remote:ccache -P # apon is my rclone config name (first line without [] of ~/.config/rclone/rclone.conf file from rclone setupped pc), ccache/ci2 is where ccache will be saved in my cloud, use yours one
+time rclone copy $send_zip remote:vayuccache -P
+time rclone copy ccache.tar.gz remote:vayuccache -P # apon is my rclone config name (first line without [] of ~/.config/rclone/rclone.conf file from rclone setupped pc), ccache/ci2 is where ccache will be saved in my cloud, use yours one
