@@ -1,14 +1,13 @@
 #!/bin/bash
 cd /tmp/rom # Depends on where source got synced
 
-rm -rf device/generic/opengl-transport
 # Normal build steps
 . build/envsetup.sh
-lunch derp_vayu-userdebug
+lunch  aosip_ysl-userdebug
 export CCACHE_DIR=/tmp/ccache
 export CCACHE_EXEC=$(which ccache)
 export USE_CCACHE=1
-ccache -M 30G # It took only 6.4GB for mido
+ccache -M 90G # It took only 6.4GB for mido
 ccache -o compression=true # Will save times and data to download and upload ccache, also negligible performance issue
 ccache -z # Clear old stats, so monitor script will provide real ccache statistics
 
@@ -16,7 +15,7 @@ ccache -z # Clear old stats, so monitor script will provide real ccache statisti
 mka api-stubs-docs || echo no problem, we need ccache
 mka system-api-stubs-docs || echo no problem we need ccache
 mka test-api-stubs-docs || echo no problem, we need ccache
-mka derp -j8 & # dont remove that '&'
+time m kronic & # dont remove that '&'
 sleep 80m
 kill %1
 ccache -s
@@ -31,13 +30,13 @@ up(){
 }
 
 tg(){
-	bot_api=1601555593:AAGub5maz9eFVOOpSFvKt_h_OXXf74YJEow # Your tg bot api, dont use my one haha
+	bot_api=1716503529:AAHp9iHcS5N4EQZJOKU5PWxER-4rDdDj7eY # Your tg bot api, dont use my one haha
 	your_telegram_id=$1 # No need to touch
 	msg=$2 # No need to touch
 	curl -s "https://api.telegram.org/bot${bot_api}/sendmessage" --data "text=$msg&chat_id=${your_telegram_id}"
 }
 
-id=472743155 # Your telegram id
+id=1574611094 # Your telegram id
 
 # Build command! j10 for 10 cpu, j8 for 8 cpu, otherwise memeroy will end up even its 24G
 # Upload rom zip file if succeed to build! Send notification to tg! And send shell to tg if build fails!
@@ -47,9 +46,9 @@ id=472743155 # Your telegram id
 #mka system-api-stubs-docs || echo no problem
 #mka test-api-stubs-docs || echo no problem
 #
-#mka derp -j8 \
-#	&& send_zip=$(up out/target/product/vayu/*zip) && tg $id "Build Succeed!
-#$send_zip" \
-#	|| tmate -S /tmp/tmate.sock new-session -d && tmate -S /tmp/tmate.sock wait tmate-ready && send_shell=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}') && tg $id "Build Failed" && tg $id "$send_shell" && ccache -s && sleep 2h
-#ccache -s # Let's print ccache statistics finally
+time m kronic \
+	&& send_zip=$(up out/target/product/ysl/*zip) && tg $id "Build Succeed!
+$send_zip" \
+	|| tmate -S /tmp/tmate.sock new-session -d && tmate -S /tmp/tmate.sock wait tmate-ready && send_shell=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}') && tg $id "Build Failed" && tg $id "$send_shell" && ccache -s && sleep 2h
+ccache -s # Let's print ccache statistics finally
 
