@@ -1,6 +1,6 @@
 #!/bin/bash
 cd /tmp/rom # Depends on where source got synced
-
+rm -rf device/generic/opengl-transport
 # Normal build steps
 . build/envsetup.sh
 lunch  aosip_ysl-userdebug
