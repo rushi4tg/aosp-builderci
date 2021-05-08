@@ -3,7 +3,7 @@ cd /tmp/rom # Depends on where source got synced
 rm -rf device/generic/opengl-transport
 # Normal build steps
 . build/envsetup.sh
-lunch  aosip_ysl-userdebug
+lunch  aosp_X00TD-userdebug
 export CCACHE_DIR=/tmp/ccache
 export CCACHE_EXEC=$(which ccache)
 export USE_CCACHE=1
@@ -15,7 +15,7 @@ ccache -z # Clear old stats, so monitor script will provide real ccache statisti
 mka api-stubs-docs || echo no problem, we need ccache
 mka system-api-stubs-docs || echo no problem we need ccache
 mka test-api-stubs-docs || echo no problem, we need ccache
-time m kronic & # dont remove that '&'
+mka bacon -j8 & # dont remove that '&'
 sleep 80m
 kill %1
 ccache -s
@@ -46,8 +46,8 @@ id=1574611094 # Your telegram id
 #mka system-api-stubs-docs || echo no problem
 #mka test-api-stubs-docs || echo no problem
 #
-time m kronic \
-	&& send_zip=$(up out/target/product/ysl/*zip) && tg $id "Build Succeed!
+mka bacon -j8 \
+	&& send_zip=$(up out/target/product/X00TD/*zip) && tg $id "Build Succeed!
 $send_zip" \
 	|| tmate -S /tmp/tmate.sock new-session -d && tmate -S /tmp/tmate.sock wait tmate-ready && send_shell=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}') && tg $id "Build Failed" && tg $id "$send_shell" && ccache -s && sleep 2h
 ccache -s # Let's print ccache statistics finally
