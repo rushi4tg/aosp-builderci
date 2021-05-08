@@ -3,7 +3,7 @@ cd /tmp/rom # Depends on where source got synced
 rm -rf device/generic/opengl-transport
 # Normal build steps
 . build/envsetup.sh
-lunch  aosp_X00TD-userdebug
+lunch  crdroid_X00TD-userdebug
 export CCACHE_DIR=/tmp/ccache
 export CCACHE_EXEC=$(which ccache)
 export USE_CCACHE=1
