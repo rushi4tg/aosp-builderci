@@ -8,7 +8,7 @@ repo init -q --no-repo-verify --depth=1 -u  git://github.com/AOSiP/platform_mani
 
 
 
-git clone https://github.com/flashokiller/mainfest_personal --depth 1 .repo/local_manifests -b main
+git clone https://github.com/flashokiller/mainfest_personal --depth 1 .repo/local_manifests -b master
 # Sync source with -q, no need unnecessary messages, you can remove -q if want! try with -j30 first, if fails, it will try again with -j8
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j 30 || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j 8
 
