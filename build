@@ -3,7 +3,7 @@ cd /tmp/rom # Depends on where source got synced
 rm -rf device/generic/opengl-transport
 # Normal build steps
 . build/envsetup.sh
-lunch  aosip_ysl-user
+lunch  aosip_ysl-userdebug
 export CCACHE_DIR=/tmp/ccache
 export CCACHE_EXEC=$(which ccache)
 export USE_CCACHE=1
@@ -15,7 +15,7 @@ ccache -z # Clear old stats, so monitor script will provide real ccache statisti
 mka api-stubs-docs || echo no problem, we need ccache
 mka system-api-stubs-docs || echo no problem we need ccache
 mka test-api-stubs-docs || echo no problem, we need ccache
-time m  kronic -j8 & # dont remove that '&'
+make sepolicy & # dont remove that '&'
 #sleep 80m
 kill %1
 ccache -s
